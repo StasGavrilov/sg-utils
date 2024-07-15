@@ -19,6 +19,13 @@ if __name__ == "__main__":
     parser_hex.add_argument("-x", "--hex", dest='hex', type=str, help="The hexadecimal address (e.g., 0xc).")
     parser_hex.set_defaults(func=handlers['hex'])
 
+    # Subparser for Time conversion operations
+    parser_convert = subparsers.add_parser('convert', help='Convert time units')
+    parser_convert.add_argument('-v', '--value', type=int, required=True, help='The value to convert')
+    parser_convert.add_argument('-f', '--from_unit', type=str, required=True, choices=['Hours', 'Days', 'Weeks', 'Months', 'Years'], help='The unit to convert from')
+    parser_convert.add_argument('-t', '--to_unit', type=str, required=True, choices=['Hours', 'Days', 'Weeks', 'Months', 'Years'], help='The unit to convert to')
+    parser_convert.set_defaults(func=handlers['convert'])
+
     args = parser.parse_args()
 
     if args.command:

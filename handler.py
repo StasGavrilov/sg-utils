@@ -1,6 +1,7 @@
 from md import MD
 from ssh import SSHToVM
 from hex import hex_to_decimal
+from time_convert import time_convert
 
 def handle_md(args):
     ssh_client = None
@@ -25,7 +26,11 @@ def handle_md(args):
 def handle_hex(args):
     hex_to_decimal(args.hex)
 
+def handle_convert(args):
+    time_convert(args.value, args.from_unit, args.to_unit)
+
 handlers = {
     'md': handle_md,
     'hex': handle_hex,
+    'convert': handle_convert,
 }
