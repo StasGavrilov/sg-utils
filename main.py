@@ -1,12 +1,9 @@
-#!/opt/homebrew/bin/python3
-
 import argparse
-
 from handler import handlers
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Script description")
-    subparsers = parser.add_subparsers(dest='command')
+    subparsers = parser.add_subparsers(dest='command', required=True)
 
     # Subparser for MD operations
     parser_md = subparsers.add_parser('md', help='MD operations')
@@ -28,4 +25,3 @@ if __name__ == "__main__":
         args.func(args)
     else:
         parser.print_help()
-
