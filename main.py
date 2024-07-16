@@ -22,8 +22,8 @@ if __name__ == "__main__":
     # Subparser for Time conversion operations
     parser_convert = subparsers.add_parser('convert', help='Convert time units')
     parser_convert.add_argument('-v', '--value', type=int, required=True, help='The value to convert')
-    parser_convert.add_argument('-f', '--from_unit', type=str, required=True, choices=['Hours', 'Days', 'Weeks', 'Months', 'Years'], help='The unit to convert from')
-    parser_convert.add_argument('-t', '--to_unit', type=str, required=True, choices=['Hours', 'Days', 'Weeks', 'Months', 'Years'], help='The unit to convert to')
+    parser_convert.add_argument('-f', '--from-unit', type=str, required=True, choices=['hours', 'days', 'weeks', 'months', 'years'], help='The unit to convert from')
+    parser_convert.add_argument('-t', '--to-unit', type=str, required=True, choices=['hours', 'days', 'weeks', 'months', 'years'], help='The unit to convert to')
     parser_convert.set_defaults(func=handlers['convert'])
 
     args = parser.parse_args()
