@@ -2,6 +2,10 @@ from md import MD
 from ssh import SSHToVM
 from hex import hex_to_decimal
 from time_convert import time_convert
+from ilorest import ILOREST
+
+def add_device_argument(parser):
+    parser.add_argument("-d", "--device", dest='device', help="Hostname or IP address of the iBox")
 
 def handle_md(args):
     ssh_client = None
@@ -29,8 +33,21 @@ def handle_hex(args):
 def handle_convert(args):
     time_convert(args.value, args.from_unit, args.to_unit)
 
+def handle_ilorest(args):
+    if args.device:
+        ssh_client = SSHToVM(host=args.device)
+        ssh_client.connect()
+
+        ilorest = ILOREST(ssh_client)
+
+        if args.info:
+            ilorest.server_info()
+
+        ssh_client.close()
+
 handlers = {
     'md': handle_md,
     'hex': handle_hex,
     'convert': handle_convert,
+    'ilorest': handle_ilorest,
 }

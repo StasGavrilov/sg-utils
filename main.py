@@ -1,5 +1,5 @@
 import argparse
-from handler import handlers
+from handler import handlers, add_device_argument
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Script description")
@@ -7,7 +7,7 @@ if __name__ == "__main__":
 
     # Subparser for MD operations
     parser_md = subparsers.add_parser('md', help='MD operations')
-    parser_md.add_argument("-d", "--device", dest='device', help="Hostname or IP address of the iBox")
+    add_device_argument(parser_md)
     parser_md.add_argument("-i", '--increase', dest='increase', action='store_true', help='Increase MD sync speed')
     parser_md.add_argument("-r", '--decrease', dest='decrease', action='store_true', help='Decrease MD sync speed')
     parser_md.add_argument("-s", '--status', dest='status', action='store_true', help='Show MD status')
@@ -25,6 +25,12 @@ if __name__ == "__main__":
     parser_convert.add_argument('-f', '--from-unit', type=str, required=True, choices=['hours', 'days', 'weeks', 'months', 'years'], help='The unit to convert from')
     parser_convert.add_argument('-t', '--to-unit', type=str, required=True, choices=['hours', 'days', 'weeks', 'months', 'years'], help='The unit to convert to')
     parser_convert.set_defaults(func=handlers['convert'])
+
+    # Subparser for ILOREST operations
+    parser_ilorest = subparsers.add_parser('ilorest', help='ilorest operations')
+    add_device_argument(parser_ilorest)
+    parser_ilorest.add_argument("-i", "--info", dest='info', action='store_true', help="Flag for additional information for iBox")
+    parser_ilorest.set_defaults(func=handlers['ilorest'])
 
     args = parser.parse_args()
 
